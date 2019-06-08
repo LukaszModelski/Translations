@@ -1,0 +1,42 @@
+@import '_second';
+
+body{
+	font-size: 20px;
+}
+.wrapper{
+	padding: 1rem 5rem 1rem 1rem;
+}
+h1{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.flex-container{
+	display: flex;
+	// justify-content: space-between;
+	form{
+		margin-bottom: 20px;
+	}
+	table{
+		tr{
+			background-color: gray;
+		}
+		td{
+			padding: 1rem;
+			border-bottom: 1px solid gray;
+		}
+		td:last-child{
+			opacity: 0;
+		}
+		td:last-child:hover{
+			opacity: 1;
+		}
+		td.wrong{
+			opacity: 1;
+			background-color: red;
+		}
+		td.correct{
+			opacity: 1;
+			background-color: green;
+		}
+	}
+}

@@ -1,0 +1,29 @@
+body {
+  font-size: 20px; }
+
+.wrapper {
+  padding: 1rem 5rem 1rem 1rem; }
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.flex-container {
+  display: flex; }
+  .flex-container form {
+    margin-bottom: 20px; }
+  .flex-container table tr {
+    background-color: gray; }
+  .flex-container table td {
+    padding: 1rem;
+    border-bottom: 1px solid gray; }
+  .flex-container table td:last-child {
+    opacity: 0; }
+  .flex-container table td:last-child:hover {
+    opacity: 1; }
+  .flex-container table td.wrong {
+    opacity: 1;
+    background-color: red; }
+  .flex-container table td.correct {
+    opacity: 1;
+    background-color: green; }

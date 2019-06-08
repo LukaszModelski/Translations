@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Translations</title>
+
+		<!-- Place favicon.ico in the root directory -->
+		<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+		
+		<!-- Link all your styles here. Place frameworks befor your own styles. -->
+		<!--build:css styles/css/combined.css -->	
+		<link rel="stylesheet" href="styles/css/main.css">	
+		<!-- endbuild -->
+		
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1>Translations</h1>
+		</div>
+		<div class="flex-container">
+			<div class="wrapper">
+				<form action="">
+					<label>Add new word</label>
+					<input class="input-new-word-en" type="text" placeholder="en">
+					<input class="input-new-word-pl" type="text" placeholder="pl">
+					<input class="submit-new-word" type="submit" value="add">
+				</form>
+				<table class="main-table">
+					
+				</table>
+			</div>
+			<div class="wrapper">
+				<button class="draw">Draw random</button>
+				<input class="input-quantity" type="number" placeholder="How many?">
+				<table class="random-table">
+					
+				</table>
+				<input class="checkAnswears" type="submit" value="Sprawdź">
+			</div>
+		</div>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#config-web-app -->
+		<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+
+		<!-- Link all your scripts here. Place frameworks before your own scripts. -->
+		<!--build:js scripts/combined.js -->
+		<script src="scripts/main.js"></script>
+		<script src="scripts/firebase.js"></script>
+		<!-- endbuild -->
+
+	</body>
+</html>
