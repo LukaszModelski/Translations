@@ -18,6 +18,9 @@ const databeseRef = firebase.database().ref();
 databeseRef.once("value")
 .then(function(snapshot) {
     dataFromFirebase = snapshot.val();
+    // dataFromFirebase.sort(function(a, b){
+    //     return a.percent - b.percent;
+    // });
     mainIndex = dataFromFirebase.length;
     fillDOM(dataFromFirebase);
     eventListeners(dataFromFirebase);

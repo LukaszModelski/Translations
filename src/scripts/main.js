@@ -20,8 +20,23 @@
 // FUNCTIONS
 function fillDOM(array) {
     var table = document.querySelector('.main-table');
+    var lvl;
     array.forEach(element => {
-        table.insertAdjacentHTML('beforeend', '<tr><td>'+element.pl+'</td><td><input></td><td>'+element.en+'</td></tr>');
+        switch (true) {
+            case element.attempts == 0:
+                lvl = ' ';
+                break;
+            case element.percent>75:
+                lvl = 'good';
+                break;
+            case element.percent>50:
+                lvl = 'average';
+                break;
+            default:
+                lvl = 'weak';
+                break;
+        }
+        table.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+element.en+'</td><td>'+element.percent+'%</td><td>'+element.success+'/'+element.attempts+'</td><td>'+element.pl+'</td></tr>');
     });
 }
 
@@ -29,10 +44,13 @@ function drawRandom(quantity, array){
     var tempArray = array.slice();
     var tableRandom = document.querySelector('.random-table');
     tableRandom.innerHTML = '';
+    quantity = (quantity > tempArray.length) ? tempArray.length : quantity;
     for (let index = 0; index < quantity; index++) {
-        var randomIndex = Math.floor(Math.random() * (tempArray.length));
-        tableRandom.insertAdjacentHTML('beforeend', '<tr><td>'+randomIndex+'</td><td>'+tempArray[randomIndex].pl+'</td><td><input type="text" placeholder="answear"></td><td>'+tempArray[randomIndex].en+'</td></tr>');
-        tempArray.splice(randomIndex, 1);
+        do {
+            var randomIndex = Math.floor(Math.random() * (tempArray.length));
+        } while (tempArray[randomIndex] == 'already selected');
+        tableRandom.insertAdjacentHTML('beforeend', '<tr><td>'+randomIndex+'</td><td>'+tempArray[randomIndex].en+'</td><td><input type="text" placeholder="answear"></td><td>'+tempArray[randomIndex].pl+'</td></tr>');
+        tempArray[randomIndex] = 'already selected';
     }
     document.querySelector('input.checkAnswears').addEventListener('click', function(){
         checkAnswears();
@@ -43,15 +61,21 @@ function checkAnswears() {
     var rowsNodes = document.querySelectorAll('.random-table tr');
     var rows = nodeToArray(rowsNodes);
     rows.forEach((row, i) => {
+        var index = row.childNodes[0].textContent;
+        var attempts = dataFromFirebase[index].attempts + 1;
+        var success = dataFromFirebase[index].success;
         var en = row.childNodes[1].textContent;
         var pl = row.childNodes[3].textContent;
         var plTd = row.childNodes[3];
         var input = row.childNodes[2].childNodes[0].value;
         if(pl.includes(input) && input !== ''){
             plTd.classList.add('correct');
+            success++;
         } else {
             plTd.classList.add('wrong');
         }
+        var percentage = success/attempts*100;
+        updateDB(index, pl, en, attempts, success, percentage);
     });
 }
 

@@ -27,3 +27,9 @@ h1 {
   .flex-container table td.correct {
     opacity: 1;
     background-color: green; }
+  .flex-container table tr.weak {
+    background-color: red; }
+  .flex-container table tr.average {
+    background-color: orange; }
+  .flex-container table tr.good {
+    background-color: green; }

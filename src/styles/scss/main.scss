@@ -38,5 +38,14 @@ h1{
 			opacity: 1;
 			background-color: green;
 		}
+		tr.weak{
+			background-color: red;
+		}
+		tr.average{
+			background-color: orange;
+		}
+		tr.good{
+			background-color: green;
+		}
 	}
 }
