@@ -38,6 +38,28 @@ function fillDOM(array) {
         }
         table.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+element.en+'</td><td>'+element.percent+'%</td><td>'+element.success+'/'+element.attempts+'</td><td>'+element.pl+'</td></tr>');
     });
+    // for(var key in mainObject){
+    //     switch (true) {
+    //         case mainObject[key].attempts == 0:
+    //             lvl = '';
+    //             break;
+    //         case mainObject[key].percent>75:
+    //             lvl = 'good';
+    //             break;
+    //         case mainObject[key].percent>50:
+    //             lvl = 'average';
+    //             break;
+    //         default:
+    //             lvl = 'weak';
+    //             break;
+    //     }
+    //     table.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+mainObject[key].en+'</td><td>'+mainObject[key].percent+'%</td><td>'+mainObject[key].success+'/'+mainObject[key].attempts+'</td><td>'+mainObject[key].pl+'</td></tr>');
+    // }
+}
+
+function clearDOM(){
+    var table = document.querySelector('.main-table');
+    table.innerHTML = '';
 }
 
 function drawRandom(quantity, array){
@@ -49,42 +71,55 @@ function drawRandom(quantity, array){
         do {
             var randomIndex = Math.floor(Math.random() * (tempArray.length));
         } while (tempArray[randomIndex] == 'already selected');
-        tableRandom.insertAdjacentHTML('beforeend', '<tr><td>'+randomIndex+'</td><td>'+tempArray[randomIndex].en+'</td><td><input type="text" placeholder="answear"></td><td>'+tempArray[randomIndex].pl+'</td></tr>');
+        tableRandom.insertAdjacentHTML('beforeend', '<tr><td>'+tempArray[randomIndex].en+'</td><td><input type="text" placeholder="answear"></td><td>'+tempArray[randomIndex].pl+'</td></tr>');
         tempArray[randomIndex] = 'already selected';
     }
-    document.querySelector('input.checkAnswears').addEventListener('click', function(){
-        checkAnswears();
-    });
+    // console.log(tempArray);
+    var buttonCheckAnswears = document.querySelector('input.checkAnswears');
+    buttonCheckAnswears.removeEventListener('click', checkAnswears);
+    buttonCheckAnswears.addEventListener('click', checkAnswears);
 }
 
 function checkAnswears() {
     var rowsNodes = document.querySelectorAll('.random-table tr');
     var rows = nodeToArray(rowsNodes);
     rows.forEach((row, i) => {
-        var index = row.childNodes[0].textContent;
-        var attempts = dataFromFirebase[index].attempts + 1;
-        var success = dataFromFirebase[index].success;
-        var en = row.childNodes[1].textContent;
-        var pl = row.childNodes[3].textContent;
-        var plTd = row.childNodes[3];
-        var input = row.childNodes[2].childNodes[0].value;
+        // var index = row.childNodes[0].textContent;
+        var en = row.childNodes[0].textContent;
+        var attempts = dataFromFirebase[en].attempts + 1;
+        var success = dataFromFirebase[en].success;
+        var pl = row.childNodes[2].textContent;
+        var plTd = row.childNodes[2];
+        var input = row.childNodes[1].childNodes[0].value;
         if(pl.includes(input) && input !== ''){
             plTd.classList.add('correct');
             success++;
+            
         } else {
             plTd.classList.add('wrong');
         }
-        var percentage = success/attempts*100;
-        updateDB(index, pl, en, attempts, success, percentage);
+        var percentage = Math.round(success/attempts*100*100)/100;
+        updateDB(en, pl, en, attempts, success, percentage);
+        console.log('EN: ' + en);
+        console.log('PL: ' + pl);
+        console.log('attemps: ' + attempts);
+        console.log('Success: ' + success);
+        console.log('Percentage: ' + percentage);
     });
+    reload();
 }
 
-function updateDB(index, pl, en, attempts, success, percent){
-    firebase.database().ref('/'+index+'/pl').set(pl);
-    firebase.database().ref('/'+index+'/en').set(en);
-    firebase.database().ref('/'+index+'/attempts').set(attempts);
-    firebase.database().ref('/'+index+'/success').set(success);
-    firebase.database().ref('/'+index+'/percent').set(percent);
+function updateDB(path, pl, en, attempts, success, percent){
+    firebase.database().ref('/'+path+'/pl').set(pl);
+    firebase.database().ref('/'+path+'/en').set(en);
+    firebase.database().ref('/'+path+'/attempts').set(attempts);
+    firebase.database().ref('/'+path+'/success').set(success);
+    firebase.database().ref('/'+path+'/percent').set(percent);
+}
+
+function reload(){
+    clearDOM();
+    init();
 }
 
 function addNewWord(){
@@ -93,21 +128,25 @@ function addNewWord(){
     var wordPL = inputPL.value;
     var wordEN = inputEN.value;
     if(wordPL && wordEN){
-        updateDB(mainIndex, wordPL, wordEN, 0, 0, 0);
-        mainIndex++;
+        updateDB(wordEN, wordPL, wordEN, 0, 0, 0);
         inputPL.value = '';
         inputEN.value = '';
     }
+    reload();
 }
 
 function eventListeners(data) {
     // draw ranodm
-    document.querySelector('button.draw').addEventListener('click', function(){
+    function checkQuantityAndDraw() {
         var quantity = document.querySelector('.input-quantity').value;
         if(quantity){
             drawRandom(quantity, data);
         }
-    });
+    }
+    var drawButton = document.querySelector('button.draw');
+    // drawButton 
+    drawButton.removeEventListener('click', checkQuantityAndDraw);
+    drawButton.addEventListener('click', checkQuantityAndDraw);
 
     // add new word
     document.querySelector('.submit-new-word').addEventListener('click', function(button){

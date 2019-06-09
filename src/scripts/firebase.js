@@ -13,22 +13,19 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 var dataFromFirebase;
 var mainIndex;
+var sortedValuesArray;
 
 const databeseRef = firebase.database().ref();
-databeseRef.once("value")
-.then(function(snapshot) {
-    dataFromFirebase = snapshot.val();
-    // dataFromFirebase.sort(function(a, b){
-    //     return a.percent - b.percent;
-    // });
-    mainIndex = dataFromFirebase.length;
-    fillDOM(dataFromFirebase);
-    eventListeners(dataFromFirebase);
-});
-
-// firebase.database().ref('/30/').set({
-//     pl: "kot",
-//     en: "cat"
-// });
-
-// updateDB(20, 10, 6, 60);
+function init(){
+    databeseRef.once("value")
+    .then(function(snapshot) {
+        dataFromFirebase = snapshot.val();
+        sortedValuesArray = Object.values(dataFromFirebase).sort(function(a,b){
+            return a.percent-b.percent;
+        });
+        fillDOM(sortedValuesArray);
+        eventListeners(sortedValuesArray);
+    });
+}
+init();
+// updateDB('oozy', 'wilgotny / błotnisty', 'oozy', 3, 2, 2/3*100);
