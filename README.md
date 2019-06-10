@@ -1,7 +1,7 @@
 # Usage
 ### 1. Clone repository
 ```sh 
-git clone https://github.com/LukaszModelski/Gulp-starter.git
+git clone https://github.com/LukaszModelski/Translations.git
 ```
 ### 2. Go inside cloned repository and install packages (node.js with npm must be installed on your machine)
 ```sh 

@@ -12,7 +12,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 var dataFromFirebase;
-var mainIndex;
+var globalLoaded = false;
 var sortedValuesArray;
 
 const databeseRef = firebase.database().ref();
@@ -24,8 +24,10 @@ function init(){
             return a.percent-b.percent;
         });
         fillDOM(sortedValuesArray);
-        eventListeners(sortedValuesArray);
+        if(!globalLoaded){
+            eventListeners(sortedValuesArray);
+        }
+        globalLoaded = true;
     });
 }
 init();
-// updateDB('oozy', 'wilgotny / błotnisty', 'oozy', 3, 2, 2/3*100);

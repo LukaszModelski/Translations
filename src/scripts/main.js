@@ -1,24 +1,6 @@
-// var dataFromJSON;
-// const filePromise = new Promise((resolve, reject)=>{
-//     var xobj = new XMLHttpRequest();
-//     xobj.overrideMimeType("application/json");
-//     xobj.open('GET', '../translations.json', true);
-//     xobj.addEventListener('load', function() {
-//         if (this.status === 200) {
-//             resolve(JSON.parse(xobj.responseText));
-//         }
-//     });
-//     xobj.send(null);  
-// });
-
-// filePromise.then((resolved)=>{
-//     dataFromJSON = resolved;
-//     fillDOM(dataFromJSON);
-//     eventListeners(dataFromJSON);
-// });
-
 // FUNCTIONS
 function fillDOM(array) {
+    // console.log('FILLING DOOM');
     var table = document.querySelector('.main-table');
     var lvl;
     array.forEach(element => {
@@ -38,23 +20,6 @@ function fillDOM(array) {
         }
         table.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+element.en+'</td><td>'+element.percent+'%</td><td>'+element.success+'/'+element.attempts+'</td><td>'+element.pl+'</td></tr>');
     });
-    // for(var key in mainObject){
-    //     switch (true) {
-    //         case mainObject[key].attempts == 0:
-    //             lvl = '';
-    //             break;
-    //         case mainObject[key].percent>75:
-    //             lvl = 'good';
-    //             break;
-    //         case mainObject[key].percent>50:
-    //             lvl = 'average';
-    //             break;
-    //         default:
-    //             lvl = 'weak';
-    //             break;
-    //     }
-    //     table.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+mainObject[key].en+'</td><td>'+mainObject[key].percent+'%</td><td>'+mainObject[key].success+'/'+mainObject[key].attempts+'</td><td>'+mainObject[key].pl+'</td></tr>');
-    // }
 }
 
 function clearDOM(){
@@ -100,11 +65,11 @@ function checkAnswears() {
         }
         var percentage = Math.round(success/attempts*100*100)/100;
         updateDB(en, pl, en, attempts, success, percentage);
-        console.log('EN: ' + en);
-        console.log('PL: ' + pl);
-        console.log('attemps: ' + attempts);
-        console.log('Success: ' + success);
-        console.log('Percentage: ' + percentage);
+        // console.log('EN: ' + en);
+        // console.log('PL: ' + pl);
+        // console.log('attemps: ' + attempts);
+        // console.log('Success: ' + success);
+        // console.log('Percentage: ' + percentage);
     });
     reload();
 }
@@ -136,7 +101,7 @@ function addNewWord(){
 }
 
 function eventListeners(data) {
-    // draw ranodm
+    // draw random
     function checkQuantityAndDraw() {
         var quantity = document.querySelector('.input-quantity').value;
         if(quantity){
@@ -145,14 +110,17 @@ function eventListeners(data) {
     }
     var drawButton = document.querySelector('button.draw');
     // drawButton 
-    drawButton.removeEventListener('click', checkQuantityAndDraw);
+    // drawButton.removeEventListener('click', checkQuantityAndDraw);
     drawButton.addEventListener('click', checkQuantityAndDraw);
 
     // add new word
-    document.querySelector('.submit-new-word').addEventListener('click', function(button){
-        button.preventDefault();
+    var preventDefaultAndAddNewWord = function(event){
+        event.preventDefault();
         addNewWord();
-    });
+    }
+    var addNewButton = document.querySelector('.submit-new-word');
+    // addNewButton.removeEventListener('click', preventDefaultAndAddNewWord);
+    addNewButton.addEventListener('click', preventDefaultAndAddNewWord);
 }
 
 function nodeToArray(nodeList) {
