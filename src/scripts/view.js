@@ -18,6 +18,12 @@ var view = (function() {
         sortDataFromFirebase: function(firebaseObject){
 
         },
+        setUpHints: function() {
+            // var showHintButtons = document.querySelectorAll('.main-table .hint');
+            // showHintButtons.forEach.addEventListener('mouseenter', function(btn) {
+            //     console.log(btn.target);
+            // });
+        },
         drawMainTable: function(firebaseData, table){
             DOMElementes.wordsTable.innerHTML = "";
             var sortedValuesArray = Object.values(firebaseData).sort(function(a,b){
@@ -39,7 +45,8 @@ var view = (function() {
                         lvl = 'weak';
                         break;
                 }
-                DOMElementes.wordsTable.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td>'+element.en+'</td><td>'+element.percent+'%</td><td>'+element.success+'/'+element.attempts+'</td><td>'+element.pl+'</td></tr>');
+                DOMElementes.wordsTable.insertAdjacentHTML('beforeend', '<tr class="'+lvl+'"><td class="hint">HINT</td><td class="show-hint">?</td><td>'+element.en+'</td><td>'+element.percent+'%</td><td>'+element.success+'/'+element.attempts+'</td><td>'+element.pl+'</td></tr>');
+                this.setUpHints();
             });
         },
         drawRandomTable: function(quantity, array){

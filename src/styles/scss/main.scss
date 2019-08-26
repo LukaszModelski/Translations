@@ -17,12 +17,24 @@ h1{
 		margin-bottom: 20px;
 	}
 	table{
+		position: relative;
+		// width: 650px;
 		tr{
+			position: relative;
 			background-color: gray;
 		}
 		td{
 			padding: 1rem;
 			border-bottom: 1px solid gray;
+		}
+		td.hint{
+			position: absolute;
+			z-index: -1;
+			width: 100%;
+			background-color: gray;
+			box-sizing: border-box;
+			opacity: 0;
+			transition: all 0.2s;
 		}
 		td:last-child{
 			opacity: 0;

@@ -31,6 +31,11 @@ var controller = (function(model, view) {
             var data = model.getData();
             model.checkAnswers(reloadDOM, data.dataFromFirebase);
         });
+
+        // show hint
+        // DOMElements.wordsTable.addEventListener('mouseenter', function(e) {
+        //     console.log(e.target);
+        // });
     };
 
     var reloadDOM = function(){

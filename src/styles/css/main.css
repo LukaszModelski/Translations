@@ -12,24 +12,35 @@ h1 {
   display: flex; }
   .flex-container form {
     margin-bottom: 20px; }
-  .flex-container table tr {
-    background-color: gray; }
-  .flex-container table td {
-    padding: 1rem;
-    border-bottom: 1px solid gray; }
-  .flex-container table td:last-child {
-    opacity: 0; }
-  .flex-container table td:last-child:hover {
-    opacity: 1; }
-  .flex-container table td.wrong {
-    opacity: 1;
-    background-color: red; }
-  .flex-container table td.correct {
-    opacity: 1;
-    background-color: green; }
-  .flex-container table tr.weak {
-    background-color: red; }
-  .flex-container table tr.average {
-    background-color: orange; }
-  .flex-container table tr.good {
-    background-color: green; }
+  .flex-container table {
+    position: relative; }
+    .flex-container table tr {
+      position: relative;
+      background-color: gray; }
+    .flex-container table td {
+      padding: 1rem;
+      border-bottom: 1px solid gray; }
+    .flex-container table td.hint {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      background-color: gray;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: all 0.2s; }
+    .flex-container table td:last-child {
+      opacity: 0; }
+    .flex-container table td:last-child:hover {
+      opacity: 1; }
+    .flex-container table td.wrong {
+      opacity: 1;
+      background-color: red; }
+    .flex-container table td.correct {
+      opacity: 1;
+      background-color: green; }
+    .flex-container table tr.weak {
+      background-color: red; }
+    .flex-container table tr.average {
+      background-color: orange; }
+    .flex-container table tr.good {
+      background-color: green; }
