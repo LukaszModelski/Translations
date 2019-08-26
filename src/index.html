@@ -18,8 +18,18 @@
 	<body>
 		<div class="wrapper">
 			<h1>Translations</h1>
+			<button class="logout-btn">Log out</button>
 		</div>
-		<div class="flex-container">
+		<div class="wrapper login-form-wrapper">
+			<form class="login-form">
+				<label for="">E-mail:</label>
+				<input type="email">
+				<label for="">Password:</label>
+				<input type="password">
+				<input class="submit-login" type="submit">
+			</form>
+		</div>
+		<div class="main-content flex-container display-none">
 			<div class="wrapper">
 				<form action="">
 					<label>Add new word</label>
@@ -46,6 +56,7 @@
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 			https://firebase.google.com/docs/web/setup#config-web-app -->
+		<script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
 
 		<!-- Link all your scripts here. Place frameworks before your own scripts. -->
@@ -55,6 +66,7 @@
 		<script src="scripts/view.js"></script>
 		<script src="scripts/model.js"></script>
 		<script src="scripts/controller.js"></script>
+		<script src="scripts/loginForm.js"></script>
 		<!-- endbuild -->
 
 	</body>

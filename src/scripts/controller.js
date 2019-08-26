@@ -1,13 +1,5 @@
 var controller = (function(model, view) {
 
-    var setupFirebaseConnection = function(){
-
-    }
-    
-    var getDataFromFirebase = function(){
-
-    }
-
     var setupEventListeners = function(){
 
         var DOMElements = view.getDOMElements();
@@ -48,7 +40,6 @@ var controller = (function(model, view) {
 
     return {
         init: function() {
-            model.setupFirebaseConnection();
             reloadDOM();
             setupEventListeners();
         }
@@ -56,4 +47,4 @@ var controller = (function(model, view) {
 
 })(model, view);
 
-controller.init();
+// controller.init();

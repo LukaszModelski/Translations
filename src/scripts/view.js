@@ -1,6 +1,7 @@
 var view = (function() {
 
     var DOMElementes = {
+        mainContent: document.querySelector('.main-content'),
         addNewWord: document.querySelector('.submit-new-word'),
         inputWordEN: document.querySelector('.input-new-word-en'),
         inputWordPL: document.querySelector('.input-new-word-pl'),
@@ -23,6 +24,24 @@ var view = (function() {
             // showHintButtons.forEach.addEventListener('mouseenter', function(btn) {
             //     console.log(btn.target);
             // });
+        },
+        clearMainTable: function() {
+            DOMElementes.wordsTable.innerHTML = "";
+            // TO DO
+            // clear real data
+        },
+        clearRandomTable: function() {
+            DOMElementes.randomTable.innerHTML = "";
+            // TO DO
+            // clear real data
+        },
+        hideMainContent: function() {
+            if (!document.body.classList.contains('display-none')) {
+                DOMElementes.mainContent.classList.add('display-none');
+            }
+        },
+        showMainContent: function() {
+            DOMElementes.mainContent.classList.remove('display-none');
         },
         drawMainTable: function(firebaseData, table){
             DOMElementes.wordsTable.innerHTML = "";
